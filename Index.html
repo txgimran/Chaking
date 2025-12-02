@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refer & Earn - Money App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2575fc;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .referral-section {
+            margin: 25px 0;
+        }
+        
+        .referral-link {
+            background: #f8f9fa;
+            border: 1px dashed #2575fc;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .referral-link span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex-grow: 1;
+            font-size: 14px;
+            color: #495057;
+        }
+        
+        .copy-btn {
+            background: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: background 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: #1a68e8;
+        }
+        
+        .withdraw-section {
+            background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 25px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .withdraw-btn {
+            background: white;
+            color: #2575fc;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .withdraw-btn:hover {
+            background: #f8f9fa;
+            transform: scale(1.02);
+        }
+        
+        .withdraw-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .info-box {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .info-box ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+        
+        .info-box li {
+            margin-bottom: 5px;
+        }
+        
+        .history-btn {
+            background: transparent;
+            color: #2575fc;
+            border: 1px solid #2575fc;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .history-btn:hover {
+            background: #2575fc;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2575fc;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-gift"></i> Refer & Earn</h1>
+            <p>Invite friends and earn money!</p>
+        </div>
+        
+        <div class="card">
+            <h2><i class="fas fa-user-circle"></i> Your Dashboard</h2>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value">₹<span id="balance">0</span></div>
+                    <div class="stat-label">Current Balance</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="refs">0</div>
+                    <div class="stat-label">Total Referrals</div>
+                </div>
+            </div>
+            
+            <div class="referral-section">
+                <h3><i class="fas fa-share-alt"></i> Your Referral Link</h3>
+                <div class="referral-link">
+                    <span id="referralLink"></span>
+                    <button class="copy-btn" onclick="copyReferralLink()">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <p style="font-size: 14px; color: #6c757d; margin-top: 10px;">
+                    <i class="fas fa-info-circle"></i> Earn ₹5 for each friend who joins using your link
+                </p>
+            </div>
+            
+            <div class="info-box">
+                <strong><i class="fas fa-lightbulb"></i> How to Earn:</strong>
+                <ul>
+                    <li>Share your referral link with friends</li>
+                    <li>Each successful referral earns you ₹5</li>
+                    <li>Withdraw when you reach ₹10</li>
+                    <li>Maximum 1 withdrawal per day</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="withdraw-section">
+            <h3><i class="fas fa-wallet"></i> Withdraw Money</h3>
+            
+            <div id="message" class="message"></div>
+            
+            <div class="input-group">
+                <label for="upi"><i class="fas fa-money-check-alt"></i> Enter UPI ID</label>
+                <input type="text" id="upi" placeholder="example@upi">
+            </div>
+            
+            <button class="withdraw-btn" onclick="withdraw()" id="withdrawButton">
+                <i class="fas fa-rupee-sign"></i> Withdraw ₹10
+            </button>
+            
+            <button class="history-btn" onclick="showHistory()">
+                <i class="fas fa-history"></i> View Withdrawal History
+            </button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 Refer & Earn App. All rights reserved.</p>
+        </div>
+    </div>
+    
+    <!-- Withdrawal History Modal -->
+    <div class="modal" id="historyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-history"></i> Withdrawal History</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="historyContent">
+                <!-- History will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const params = new URLSearchParams(location.search);
+        const uid = params.get("uid");
+        const ref = params.get("ref");
+        let userData = null;
+        
+        // Check if UID is provided
+        if (!uid) {
+            document.body.innerHTML = `
+                <div style="text-align: center; color: white; padding: 50px;">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Invalid Access</h2>
+                    <p>Please access this page from the Telegram bot.</p>
+                </div>
+            `;
+        }
+        
+        // Load user data
+        async function loadUserData() {
+            showLoading(true);
+            
+            try {
+                const response = await fetch("/open", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ uid, ref })
+                });
+                
+                const data = await response.json();
+                
+                if (data.ok) {
+                    userData = data.user;
+                    updateDashboard(data);
+                } else {
+                    showMessage(data.error || "Failed to load data", "error");
+                }
+            } catch (error) {
+                showMessage("Network error. Please try again.", "error");
+                console.error("Error:", error);
+            } finally {
+                showLoading(false);
+            }
+        }
+        
+        // Update dashboard with user data
+        function updateDashboard(data) {
+            document.getElementById("balance").textContent = data.user.balance || 0;
+            document.getElementById("refs").textContent = data.user.total_ref || 0;
+            
+            // Generate referral link
+            const referralLink = `${window.location.origin}${window.location.pathname}?uid=${uid}&ref=${data.user.id}`;
+            document.getElementById("referralLink").textContent = referralLink;
+            
+            // Update withdraw button state
+            const withdrawButton = document.getElementById("withdrawButton");
+            if (data.user.balance < data.limits.min_withdraw) {
+                withdrawButton.disabled = true;
+                withdrawButton.innerHTML = `<i class="fas fa-lock"></i> Minimum ₹${data.limits.min_withdraw} required`;
+            } else if (data.user.withdraw_count >= data.limits.daily_limit) {
+                withdrawButton.disabled = true;
+                withdrawButton.innerHTML = `<i class="fas fa-calendar-times"></i> Daily limit reached`;
+            } else {
+                withdrawButton.disabled = false;
+                withdrawButton.innerHTML = `<i class="fas fa-rupee-sign"></i> Withdraw ₹${data.limits.min_withdraw}`;
+            }
+        }
+        
+        // Withdraw function
+        async function withdraw() {
+            const upi = document.getElementById("upi").value.trim();
+            
+            if (!upi) {
+                showMessage("Please enter your UPI ID", "error");
+                return;
+            }
+            
+            // Simple UPI validation
+            if (!upi.includes("@")) {
+                showMessage("Please enter a valid UPI ID (example@upi)", "error");
+                return;
+            }
+            
+            showLoading(true);
+            
+            try {
+                const response = await fetch("/withdraw", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ uid, upi })
+                });
+                
+                const data = await response.json();
+                
+                if (data.ok) {
+                    showMessage(`✅ Withdrawal request submitted! Request ID: ${data.request_id || ''}`, "success");
+                    document.getElementById("upi").value = "";
+                    
+                    // Reload user data
+                    setTimeout(loadUserData, 1000);
+                } else {
+                    showMessage(data.error || "Withdrawal failed", "error");
+                }
+            } catch (error) {
+                showMessage("Network error. Please try again.", "error");
+                console.error("Error:", error);
+            } finally {
+                showLoading(false);
+            }
+        }
+        
+        // Copy referral link
+        function copyReferralLink() {
+            const referralLink = document.getElementById("referralLink").textContent;
+            
+            navigator.clipboard.writeText(referralLink).then(() => {
+                const originalText = document.querySelector(".copy-btn").innerHTML;
+                document.querySelector(".copy-btn").innerHTML = '<i class="fas fa-check"></i> Copied!';
+                
+                setTimeout(() => {
+                    document.querySelector(".copy-btn").innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+                showMessage("Failed to copy link", "error");
+            });
+        }
+        
+        // Show withdrawal history
+        async function showHistory() {
+            if (!uid) return;
+            
+            try {
+                const response = await fetch(`/withdraw-history/${uid}`);
+                const data = await response.json();
+                
+                if (data.ok) {
+                    displayHistory(data.withdrawals);
+                    document.getElementById("historyModal").style.display = "flex";
+                }
+            } catch (error) {
+                console.error("Error fetching history:", error);
+                showMessage("Failed to load history", "error");
+            }
+        }
+        
+        // Display history in modal
+        function displayHistory(withdrawals) {
+            const historyContent = document.getElementById("historyContent");
+            
+            if (!withdrawals || withdrawals.length === 0) {
+                historyContent.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #6c757d;">
+                        <i class="fas fa-history" style="font-size: 48px; margin-bottom: 20px;"></i>
+                        <p>No withdrawal history found</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `<div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">Date</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">Amount</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">UPI</th>
+                            <th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+            
+            withdrawals.forEach(w => {
+                const date = new Date(w.date).toLocaleDateString('en-IN');
+                const status = w.status || 'pending';
+                const statusColor = status === 'approved' ? '#28a745' : 
+                                  status === 'rejected' ? '#dc3545' : '#ffc107';
+                
+                html += `
+                    <tr style="border-bottom: 1px solid #dee2e6;">
+                        <td style="padding: 10px;">${date}</td>
+                        <td style="padding: 10px; font-weight: bold;">₹${w.amount}</td>
+                        <td style="padding: 10px; font-family: monospace;">${w.upi}</td>
+                        <td style="padding: 10px;">
+                            <span style="color: ${statusColor}; font-weight: bold;">
+                                ${status.charAt(0).toUpperCase() + status.slice(1)}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += `</tbody></table></div>`;
+            historyContent.innerHTML = html;
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById("historyModal").style.display = "none";
+        }
+        
+        // Show message
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = text;
+            messageDiv.className = `message ${type}`;
+            
+            // Auto hide success messages after 5 seconds
+            if (type === "success") {
+                setTimeout(() => {
+                    messageDiv.style.display = "none";
+                }, 5000);
+            }
+        }
+        
+        // Show/hide loading
+        function showLoading(show) {
+            document.getElementById("loading").style.display = show ? "block" : "none";
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById("historyModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Load data on page load
+        window.onload = function() {
+            if (uid) {
+                loadUserData();
+                
+                // Refresh data every 30 seconds
+                setInterval(loadUserData, 30000);
+            }
+        };
+    </script>
+</body>
+  </html>
